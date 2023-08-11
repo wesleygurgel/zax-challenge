@@ -1,17 +1,17 @@
 from collections import deque
-from strategies.distribution_strategy import DistributionStrategy
+from src.strategies.distribution_strategy import DistributionStrategy
+from src.constants import EXCLUSIVE_STRATEGY
 
 
 class ExclusiveFirstStrategy(DistributionStrategy):
     def distribute(self, motoboys, stores):
-        orders_queue = deque(
-            [order for store in stores for order in store.orders])
+        orders_queue = deque([order for store in stores for order in store.orders])
 
         # Distribute exclusive orders
         self.distribute_exclusive_orders(motoboys, stores, orders_queue)
 
         # Distribute remaining orders equally
-        self.distribute_remaining_orders_equally(motoboys, orders_queue)
+        self.distribute_remaining_orders_equally(motoboys, orders_queue, rule=EXCLUSIVE_STRATEGY)
 
         return motoboys
 
