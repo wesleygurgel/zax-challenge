@@ -38,7 +38,9 @@ class ExclusiveFirstStrategy(DistributionStrategy):
         :param orders_queue: Fila de pedidos restantes (utilizando collections.deque)
         """
         for motoboy in motoboys:
-            if motoboy.exclusive_store:
-                for order in [order for store in stores if store.id == motoboy.exclusive_store for order in store.orders]:
+            if motoboy.exclusive_store and motoboy.remaining_capacity() > 0:
+                exclusive_orders = [order for store in stores if store.id == motoboy.exclusive_store for order in store.orders]
+                for order in exclusive_orders[:motoboy.remaining_capacity()]:
                     motoboy.add_order(order)
                     orders_queue.remove(order)
+

@@ -1,7 +1,11 @@
 from typing import Optional
 from .order import Order
 
+
 class Motoboy:
+
+    MAX_ORDERS = 5  # Capacidade máxima de pedidos que um motoboy pode carregar
+
     def __init__(self, id: int, fee: float, exclusive_store: Optional[int] = None) -> None:
         """
         Inicializa um objeto da classe Motoboy.
@@ -30,6 +34,26 @@ class Motoboy:
         :return: Total de ganhos do motoboy
         """
         return sum([self.fee + order.commission() for order in self.orders])
+
+    def remaining_capacity(self) -> int:
+        """
+        Retorna a capacidade restante de pedidos que o motoboy pode carregar.
+
+        :return: Número de pedidos adicionais que o motoboy pode carregar
+        """
+        return self.MAX_ORDERS - len(self.orders)
+
+    def add_order(self, order: Order) -> None:
+        """
+        Adiciona um pedido à lista de pedidos do motoboy.
+
+        :param order: Pedido a ser adicionado
+        """
+        if self.remaining_capacity() > 0:
+            self.orders.append(order)
+        else:
+            raise Exception(
+                f'Motoboy com ID {self.id} já atingiu a capacidade máxima de pedidos.')
 
     def __str__(self) -> str:
         """
