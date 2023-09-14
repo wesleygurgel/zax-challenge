@@ -70,7 +70,6 @@ Qualquer outro argumento será ignorado, e uma mensagem será impressa para info
   - `utils/`: utilitários, como inicializadores, argumentos e decorators.
   - `main.py`: script principal.
 - `tests/`: testes para as classes e estratégias.
-Certamente! Aqui está a seção adicional para a documentação, descrevendo o uso do padrão de design de estratégia no Projeto Zax:
 
 ## Uso do Design Pattern Strategies
 
